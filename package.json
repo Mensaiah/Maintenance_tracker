@@ -5,7 +5,8 @@
   "main": "server.js",
   "scripts": {
     "start:": "node --use_strict ./server/server.babel.js",
-    "server": "nodemon ./server/server.js --exec babel-node --presets=es2015,stage-2"
+    "server": "nodemon ./server/server.js --exec babel-node --presets=es2015,stage-2",
+    "build": "babel-node ./Schema/createTables.js"
   },
   "repository": {
     "type": "git",

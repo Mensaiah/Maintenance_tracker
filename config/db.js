@@ -1,22 +1,14 @@
 /* eslint-disable node/no-unsupported-features/es-syntax */
-import { Client } from "pg";
-import config from "config";
+import client from "./client";
 
-const client = new Client({
-  user: "postgres",
-  password: config.get("postgresPassword"),
-  host: "localhost",
-  port: 5432,
-  database: "mendit"
-});
-
-const connectDB = async () => {
+const queryData = async (test, value) => {
   try {
-    await client.connect();
-    console.log("Database Connected");
+    const result = await client.query(test, value);
+
+    return result.rows;
   } catch (error) {
-    console.log(error);
+    console.log("Failed on error " + error);
   }
 };
 
-module.exports = connectDB;
+export default queryData;

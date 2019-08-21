@@ -2,16 +2,21 @@
 
 import express from "express";
 
-import router from "../routes/api/resquests";
-
-import connectDB from "../config/db";
+import requestRoute from "../routes/api/resquests";
+import authRoute from "../routes/api/auth";
+import userRoute from "../routes/api/users";
 
 const app = express();
 
-connectDB();
-const PORT = process.env.PORT || 5500;
+// Initialize Body Parser
 
-app.use("/api/v1/users/requests/", router);
+app.use(express.json({ extended: false }));
+// connectDB();
+const PORT = process.env.PORT || 7000;
+
+app.use("/api/v1/users/requests/", requestRoute);
+app.use("/api/v1/users/auth/", authRoute);
+app.use("/api/v1/users/", userRoute);
 
 app.get("/", (req, res) => {
   res.send("App Working");

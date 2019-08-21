@@ -23,6 +23,7 @@
     "strict": "off",
     "prefer-template": "off",
     "vars-on-top": "off",
-    "no-use-before-define": "off"
+    "no-use-before-define": "off",
+    "consistent-return": "off"
   }
 }

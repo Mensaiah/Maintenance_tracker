@@ -1,3 +1,6 @@
+import client from "../config/client";
+
+const sql = `
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 
 CREATE TABLE IF NOT EXISTS users(
@@ -19,4 +22,15 @@ CREATE TABLE IF NOT EXISTS requests(
     user_uid UUID REFERENCES users(user_uid)
 );
 
+`;
 
+client.query(sql, (err, res) => {
+  if (err) {
+    console.log("Was not successful!!");
+  } else {
+    console.log("Was successful!!");
+    console.log(res);
+  }
+
+  client.end();
+});
