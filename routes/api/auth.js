@@ -57,18 +57,17 @@ router.post(
 
         // Generate Token
         const payload = {
-          user: {
-            id: await queryData(
-              "SELECT user_uid FROM users WHERE username = $1",
-              [username]
-            )
-          }
+          user: await queryData(
+            "SELECT user_uid FROM users WHERE username = $1",
+            [username]
+          )
         };
+        console.log(payload.user);
 
         jwt.sign(
           payload,
           config.get("jwtSecret"),
-          { expiresIn: 3600 },
+          { expiresIn: 36000 },
           (err, token) => {
             if (err) throw err;
             res.json({ token });
@@ -81,4 +80,73 @@ router.post(
     }
   }
 );
+// @route  POST /api/v1/user/auth/signin
+// @desc  Authenticate User and get token
+// @access Public
+router.post(
+  "/signin",
+  [
+    check("username", "Please include a valid username").exists(),
+    check("password", "Password is required")
+      .not()
+      .isEmpty()
+  ],
+  async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
+    const { username, password } = req.body;
+    try {
+      const user = await queryData("SELECT * FROM users WHERE username = $1", [
+        username
+      ]);
+
+      if (!user[0] || user.length < 1) {
+        return res.status(400).json({ msg: "Invalid Credentials" });
+      }
+      const isMatch = await bcrypt.compare(password, user[0].pass_word);
+
+      if (!isMatch) {
+        return res.status(400).json({ msg: "Invalid Credentials" });
+      }
+      // Generate Token
+      const payload = {
+        user: await queryData(
+          "SELECT user_uid FROM users WHERE username = $1",
+          [username]
+        )
+      };
+      console.log(payload);
+
+      jwt.sign(
+        payload,
+        config.get("jwtSecret"),
+        { expiresIn: 36000 },
+        (err, token) => {
+          if (err) throw err;
+          res.json({ token });
+        }
+      );
+    } catch (error) {
+      console.log(error);
+      res.status(500).json({ msg: "Server Error" });
+    }
+  }
+);
+
+// @route  GET api/auth
+// @desc  Get authenticated user
+// @access Public
+router.get("/signin", auth, async (req, res) => {
+  try {
+    const user = await queryData(
+      "SELECT user_uid,full_name,username,date_created,admin_status FROM users WHERE user_uid = $1",
+      [req.user]
+    );
+    res.json(user);
+  } catch (error) {
+    console.log(error.message);
+  }
+});
 export default router;

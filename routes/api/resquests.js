@@ -7,12 +7,12 @@ const router = express.Router();
 // @desc  Get all user request
 // @access Public
 
-router.get("/", (req, res) => {
-  // try {
-  // } catch (error) {
-  //   console.log(error.message);
-  //   res.status(500).send("Server Error");
-  // }
-});
+// router.get("/", (req, res) => {
+//   // try {
+//   // } catch (error) {
+//   //   console.log(error.message);
+//   //   res.status(500).send("Server Error");
+//   // }
+// });
 
-module.exports = router;
+export default router;
