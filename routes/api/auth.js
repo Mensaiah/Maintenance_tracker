@@ -117,7 +117,6 @@ router.post(
           [username]
         )
       };
-      console.log(payload);
 
       jwt.sign(
         payload,
