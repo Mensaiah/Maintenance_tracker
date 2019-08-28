@@ -1,17 +1,16 @@
 /* eslint-disable node/no-unsupported-features/es-syntax */
 
 import express from "express";
-
+import cors from "cors";
 import requestRoute from "../routes/api/resquests";
 import authRoute from "../routes/api/auth";
 import userRoute from "../routes/api/users";
 
 const app = express();
 
+app.use(cors());
 // Initialize Body Parser
-
 app.use(express.json({ extended: false }));
-// connectDB();
 const PORT = process.env.PORT || 7000;
 
 app.use("/api/v1/users/requests/", requestRoute);

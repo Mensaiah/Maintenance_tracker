@@ -7,7 +7,7 @@ const queryData = async (test, value) => {
 
     return result.rows;
   } catch (error) {
-    console.log("Failed on error " + error);
+    console.log("Unable to query " + error);
   }
 };
 

@@ -19,6 +19,7 @@ CREATE TABLE IF NOT EXISTS requests(
     desription VARCHAR(500) NOT NULL,
     date_created DATE NOT NULL,
     request_status VARCHAR(15) DEFAULT 'Pending' NOT NULL,
+    admin_incharge REFERENCES users(username),
     user_uid UUID REFERENCES users(user_uid)
 );
 
