@@ -1,3 +1,4 @@
+// eslint-disable-next-line node/no-unsupported-features/es-syntax
 import client from "../config/client";
 
 const sql = `
