@@ -8,8 +8,8 @@ import { check, validationResult } from "express-validator";
 import queryData from "../../config/db";
 import auth from "../../middleware/auth";
 
-const router = express.Router();
 const date = new Date();
+const router = express.Router();
 
 // @route  POST /api/v1/user/auth/signUp
 // @desc  Register user
@@ -50,7 +50,7 @@ router.post(
         const sealedPassword = await bcrypt.hash(password, salt);
 
         // Save User
-        queryData(
+        await queryData(
           `INSERT INTO users(user_uid, full_name, username,pass_word,date_created, admin_status) values(uuid_generate_v4(),$1,$2 , $3, $4, $5)`,
           [name, username, sealedPassword, date, adminStatus]
         );
@@ -62,7 +62,6 @@ router.post(
             [username]
           )
         };
-        console.log(payload.user);
 
         jwt.sign(
           payload,
