@@ -5,7 +5,7 @@ const router = express.Router();
 
 // @route  GET /api/v1/requests/
 // @desc  Get all user request
-// @access Public
+// @access Private
 
 // router.get("/", (req, res) => {
 //   // try {

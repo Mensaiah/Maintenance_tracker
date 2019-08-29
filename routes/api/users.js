@@ -97,7 +97,7 @@ router.put(
       }
       // Check for request Approval
       const isApproved = request[0].request_status;
-      if (isApproved === true) {
+      if (isApproved === "Approved") {
         return res
           .status(400)
           .json({ msg: "Request has already been appproved" });
