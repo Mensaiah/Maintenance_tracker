@@ -157,4 +157,21 @@ router.get("/:id", auth, async (req, res) => {
   }
 });
 
+// @route  DELETE /api/v1/user/requests/:id
+// @desc  Delete Request
+// @access Private
+router.delete("/:id", auth, async (req, res) => {
+  const request = await queryData("SELECT * FROM requests WHERE req_uid = $1", [
+    req.params.id
+  ]);
+  // Make sure user is authorised to edit request
+  const isUser = req.user;
+
+  if (isUser !== request[0].user_uid) {
+    return res.status(401).json({ msg: "User Not Authorized" });
+  }
+  await queryData("DELETE FROM requests WHERE req_uid = $1", [req.params.id]);
+  res.json({ msg: "Request Deleted" });
+});
+
 export default router;
