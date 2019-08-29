@@ -2,17 +2,17 @@
 
 import express from "express";
 import { check, validationResult } from "express-validator";
-import { ClientRequest } from "http";
 import auth from "../../middleware/auth";
 import queryData from "../../config/db";
 
 const router = express.Router();
 const date = new Date();
+
 // @route  POST /api/v1/user/requests
 // @desc  Create Request
 // @access Private
 router.post(
-  "/requests",
+  "/",
   auth,
   [
     check("title", "Please include the title of the request")
@@ -33,6 +33,7 @@ router.post(
     try {
       const { title, description, admin } = req.body;
 
+      // Validate Admin Status
       const isAdmin = await queryData(
         "SELECT admin_status FROM users WHERE username = $1",
         [admin]
@@ -61,10 +62,70 @@ router.post(
   }
 );
 
+// @route  PuT /api/v1/user/requests/:id
+// @desc  edit Request
+// @access Private
+router.put(
+  "/:id",
+  auth,
+  [
+    check("title", "Please include the title of the request")
+      .not()
+      .isEmpty(),
+    check("description", "A description of the request is needed")
+      .not()
+      .isEmpty(),
+    check("admin", "Admin username is required")
+      .not()
+      .isEmpty()
+  ],
+  async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
+    try {
+      const request = await queryData(
+        "SELECT * FROM requests WHERE req_uid = $1",
+        [req.params.id]
+      );
+      // Make sure user is authorised to edit request
+      const isUser = req.user;
+
+      if (isUser !== request[0].user_uid) {
+        return res.status(401).json({ msg: "User Not Authorized" });
+      }
+      // Check for request Approval
+      const isApproved = request[0].request_status;
+      if (isApproved === true) {
+        return res
+          .status(400)
+          .json({ msg: "Request has already been appproved" });
+      }
+      // Update Request
+      const { title, description, admin } = req.body;
+      await queryData(
+        "UPDATE requests SET title = $1,description = $2, admin_incharge =$3 WHERE req_uid = $4",
+        [title, description, admin, req.params.id]
+      );
+      // Get Updated Request
+      const newRequest = await queryData(
+        "SELECT * FROM requests WHERE req_uid = $1",
+        [req.params.id]
+      );
+      res.json(newRequest[0]);
+    } catch (error) {
+      console.log(error);
+
+      res.status(500).send("Server Error");
+    }
+  }
+);
+
 // @route  GET /api/v1/user/requests
 // @desc  Get User Request
 // @access Private
-router.get("/requests", auth, async (req, res) => {
+router.get("/", auth, async (req, res) => {
   try {
     const requests = await queryData(
       "SELECT * FROM requests WHERE user_uid = $1",
@@ -80,7 +141,7 @@ router.get("/requests", auth, async (req, res) => {
 // @route  GET /api/v1/user/requests/:id
 // @desc  Get User Request
 // @access Private
-router.get("/requests/:id", auth, async (req, res) => {
+router.get("/:id", auth, async (req, res) => {
   try {
     const request = await queryData(
       "SELECT * FROM requests WHERE user_uid = $1 AND req_uid = $2",

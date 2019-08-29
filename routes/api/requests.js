@@ -3,7 +3,7 @@ import express from "express";
 
 const router = express.Router();
 
-// @route  GET /api/v1/users/requests/
+// @route  GET /api/v1/requests/
 // @desc  Get all user request
 // @access Public
 

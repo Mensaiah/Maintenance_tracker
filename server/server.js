@@ -2,7 +2,7 @@
 
 import express from "express";
 import cors from "cors";
-import requestRoute from "../routes/api/resquests";
+import requestRoute from "../routes/api/requests";
 import authRoute from "../routes/api/auth";
 import userRoute from "../routes/api/users";
 
@@ -13,9 +13,9 @@ app.use(cors());
 app.use(express.json({ extended: false }));
 const PORT = process.env.PORT || 7000;
 
-app.use("/api/v1/users/requests/", requestRoute);
+app.use("/api/v1/", requestRoute);
 app.use("/api/v1/users/auth/", authRoute);
-app.use("/api/v1/users/", userRoute);
+app.use("/api/v1/users/requests", userRoute);
 
 app.get("/", (req, res) => {
   res.send("App Working");
