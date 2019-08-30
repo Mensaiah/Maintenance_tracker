@@ -62,7 +62,7 @@ router.post(
   }
 );
 
-// @route  PuT /api/v1/user/requests/:id
+// @route  PUT /api/v1/user/requests/:id
 // @desc  edit Request
 // @access Private
 router.put(
@@ -89,6 +89,10 @@ router.put(
         "SELECT * FROM requests WHERE req_uid = $1",
         [req.params.id]
       );
+
+      if (request.length === 0) {
+        return res.status(404).json({ msg: "Request Not Found" });
+      }
       // Make sure user is authorised to edit request
       const isUser = req.user;
 
@@ -147,7 +151,7 @@ router.get("/:id", auth, async (req, res) => {
       "SELECT * FROM requests WHERE user_uid = $1 AND req_uid = $2",
       [req.user, req.params.id]
     );
-    if (!request) {
+    if (request.length === 0) {
       return res.status(404).json({ msg: "Request Not Found" });
     }
     res.json(request);
