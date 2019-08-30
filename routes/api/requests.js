@@ -77,4 +77,51 @@ router.put("/:id/approve", auth, async (req, res) => {
   }
 });
 
+// @route  PUT /api/v1/requests/:id/disapprove
+// @desc  disapprove user request
+// @access Private
+router.put("/:id/disapprove", auth, async (req, res) => {
+  try {
+    const isAdmin = await queryData("SELECT * FROM users WHERE user_uid = $1", [
+      req.user
+    ]);
+    const request = await queryData(
+      "SELECT * FROM requests WHERE req_uid = $1",
+      [req.params.id]
+    );
+
+    // Check Admin status of User
+    if (isAdmin[0].admin_status === false) {
+      return res.status(400).json({ msg: "User Not Authorised" });
+    }
+
+    // Check if Request Exists
+    if (request.length === 0) {
+      return res.status(404).json({ msg: "Request Not Found" });
+    }
+
+    // CHECK IF REQUEST IS PENDING
+    if (request[0].request_status !== "Pending") {
+      return res.status(400).json({ msg: "Not a Pending Request" });
+    }
+
+    // disapprove Request
+    await queryData(
+      "UPDATE requests SET request_status = $1 WHERE req_uid = $2",
+      ["Disapproved", req.params.id]
+    );
+
+    // Get disapproved Request
+    const disapprovedRequest = await queryData(
+      "SELECT * FROM requests WHERE req_uid = $1",
+      [req.params.id]
+    );
+
+    res.json(disapprovedRequest);
+  } catch (error) {
+    console.log(error);
+    res.status(500).send("Server error");
+  }
+});
+
 export default router;
