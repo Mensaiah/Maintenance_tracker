@@ -122,6 +122,52 @@ router.put("/:id/disapprove", auth, async (req, res) => {
     console.log(error);
     res.status(500).send("Server error");
   }
-});
+}); // @route  PUT /api/v1/requests/:id/resolve
+// @desc  resolve user request
+// @access Private
+router.put("/:id/resolve", auth, async (req, res) => {
+  try {
+    const isAdmin = await queryData("SELECT * FROM users WHERE user_uid = $1", [
+      req.user
+    ]);
+    const request = await queryData(
+      "SELECT * FROM requests WHERE req_uid = $1",
+      [req.params.id]
+    );
 
+    // Check Admin status of User
+    if (isAdmin[0].admin_status === false) {
+      return res.status(400).json({ msg: "User Not Authorised" });
+    }
+
+    // Check if Request Exists
+    if (request.length === 0) {
+      return res.status(404).json({ msg: "Request Not Found" });
+    }
+
+    // CHECK IF REQUEST IS PENDING
+    if (request[0].request_status !== "Approved") {
+      return res
+        .status(400)
+        .json({ msg: "Request needs to be approved before it is resolved" });
+    }
+
+    // resolve Request
+    await queryData(
+      "UPDATE requests SET request_status = $1 WHERE req_uid = $2",
+      ["Resolved", req.params.id]
+    );
+
+    // Get resolved Request
+    const resolvedRequest = await queryData(
+      "SELECT * FROM requests WHERE req_uid = $1",
+      [req.params.id]
+    );
+
+    res.json(resolvedRequest);
+  } catch (error) {
+    console.log(error);
+    res.status(500).send("Server error");
+  }
+});
 export default router;
