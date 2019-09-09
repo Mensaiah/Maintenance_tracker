@@ -133,9 +133,9 @@ router.post(
   }
 );
 
-// @route  GET api/auth
+// @route  GET api/auth/signin
 // @desc  Get authenticated user
-// @access Public
+// @access Private
 router.get("/signin", auth, async (req, res) => {
   try {
     const user = await queryData(
@@ -143,6 +143,18 @@ router.get("/signin", auth, async (req, res) => {
       [req.user]
     );
     res.json(user);
+  } catch (error) {
+    console.log(error.message);
+  }
+});
+
+// @route  DELETE api/auth/
+// @desc DELETE authenticated user
+// @access Private
+router.delete("/", auth, async (req, res) => {
+  try {
+    await queryData("DELETE FROM users WHERE user_uid = $1", [req.user]);
+    res.json({ msg: "User Deleted" });
   } catch (error) {
     console.log(error.message);
   }
