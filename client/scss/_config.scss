@@ -1,0 +1,60 @@
+$primary-color: #568259;
+$secondary-color: #96e6b3;
+$light-color: #f1fffa;
+$dark-color: #464e47;
+$mid-color: #ccfccb;
+
+// buttons
+.btn {
+  display: block;
+  height: 3rem;
+  width: 12rem;
+  font-size: 1.5rem;
+  border-radius: 7px;
+  color: $primary-color;
+  border: none;
+  &.btn-primary {
+    background: $primary-color;
+    color: $light-color;
+  }
+  &.btn-dark {
+    background: $dark-color;
+    color: $light-color;
+  }
+  &.btn-light {
+    background: $light-color;
+    color: $primary-color;
+  }
+  &.btn-sec {
+    background: $secondary-color;
+    color: $dark-color;
+  }
+  &.btn-mid {
+    background: $mid-color;
+    color: $primary-color;
+  }
+}
+
+//Background
+.bg {
+  &-primary {
+    background: $primary-color;
+    color: $light-color;
+  }
+  &-dark {
+    background: $dark-color;
+    color: $light-color;
+  }
+  &-light {
+    background: $light-color;
+    color: $primary-color;
+  }
+  &-sec {
+    background: $secondary-color;
+    color: $dark-color;
+  }
+  &-mid {
+    background: $mid-color;
+    color: $primary-color;
+  }
+}
