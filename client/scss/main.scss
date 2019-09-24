@@ -10,17 +10,22 @@ body {
   a {
     text-decoration: none;
     color: $light-color;
+    &:hover {
+      @include easeOut;
+      color: $mid-color;
+    }
   }
   ul {
     list-style: none;
   }
   .nav {
+    grid-area: nav;
     background: $primary-color;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0.7rem 1.5rem;
-    width: 100%;
+    padding: 0 1rem;
+
     ul {
       display: flex;
     }
@@ -33,9 +38,22 @@ body {
       color: $light-color;
       font-size: 2rem;
     }
-    .logo {
+    .logo,
+    .nav-link {
       color: $light-color;
-      font-size: 1.5rem;
+      font-size: 2rem;
+    }
+    .menu-btn {
+      margin: 0 1.8rem;
+      padding-top: 1rem;
+      .menu-line {
+        display: block;
+        width: 25px;
+        height: 3px;
+        padding: 0;
+        margin: 0 0 5px 0;
+        background: $light-color;
+      }
     }
   }
 }
@@ -89,7 +107,8 @@ body {
     }
   }
 }
-.container {
+
+.form {
   display: flex;
   flex-flow: column;
   align-items: center;
@@ -105,21 +124,109 @@ body {
     flex-flow: column;
     align-items: center;
     justify-content: space-between;
-    input {
-      font-size: 1.2rem;
-      color: rgba($dark-color, 0.64);
-      width: 25rem;
-      height: 4rem;
-      margin: 0.6rem;
-      border: 1px $primary-color solid;
-      border-radius: 10px;
+  }
+  input {
+    color: rgba($dark-color, 0.64);
+    width: 25rem;
+    height: 4rem;
+    @include input;
+    &#submit {
+      font-weight: 550;
+      color: $primary-color;
+      text-transform: uppercase;
+      font-weight: 500;
+
+      font-size: 1.8rem;
+    }
+  }
+  &.req-form {
+    align-items: flex-start;
+    textarea {
+      @include input;
+      width: 100%;
+    }
+  }
+}
+
+.container {
+  display: flex;
+  align-content: center;
+  justify-content: flex-start;
+  // height: 100%;
+  .main {
+    width: 50%;
+    margin-left: 6rem;
+  }
+  .bg-sidebar {
+    width: 30%;
+    margin-top: 1.8rem;
+  }
+}
+.main-request {
+  display: flex;
+  flex-flow: column;
+  align-self: center;
+
+  align-content: flex-start;
+  padding: 2rem;
+  margin: 3rem 25%;
+  width: 50%;
+  font-size: 2rem;
+
+  strong {
+    text-transform: uppercase;
+  }
+  span {
+    color: $dark-color;
+  }
+  button {
+    margin-top: 1rem;
+    display: inline;
+  }
+}
+
+.sm-sidebar {
+  grid-area: side;
+
+  padding-top: 4rem;
+  font-size: 1.5rem;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 15%;
+
+  z-index: 3;
+
+  margin: 0;
+  transform: translate3d(100%, 0, 0);
+  @include easeOut;
+  .menu {
+    display: flex;
+    flex-flow: column;
+    align-content: center;
+    padding-top: 3rem;
+    a {
+      text-transform: uppercase;
       padding: 0.5rem;
-      &#submit {
-        font-weight: 550;
-        color: $primary-color;
-        text-transform: uppercase;
-        font-size: 1.8rem;
+      padding-left: 1rem;
+    }
+    #selected {
+      color: $dark-color;
+      width: 100%;
+      background: $mid-color;
+      border-radius: 30px;
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
+      @include easeOut;
+      &:hover {
+        @include easeOut;
+        background: darken($mid-color, 5);
       }
     }
+  }
+  &.show {
+    transform: translate3d(0, 0, 0);
+    @include easeOut;
   }
 }

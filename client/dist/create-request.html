@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <link rel="stylesheet" href="./fontawesome/css/all.css" />
+  <link rel="stylesheet" href="./css/main.min.css" />
+  <title>Dashboard</title>
+</head>
+
+<body class="bg-light">
+  <nav class="nav">
+    <a href="index.html"><i class="logo fas fa-hammer"></i><span class="nav-brand">mendit</span>
+    </a>
+
+    <ul class="nav-items">
+
+
+      <li class="nav-link">
+        <a href="create-request.html"><i class="fas fa-plus"></i></a></i>
+      </li>
+
+      <li class="nav-link">
+          <div href="#" class="menu-btn">
+  <a href="#" class="menu-line"></a>
+  <a href="#" class="menu-line"></a>
+  <a href="#" class="menu-line"></a>
+          </div>
+  
+        </li>
+
+      <li class="nav-link">
+        <a href="login.html"><i class="fa fa-sign-out-alt"></i></a>
+      </li>
+    </ul>
+  </nav>
+  
+   
+      
+     
+   
+    
+  <div class="container">
+
+    <section class="main bg-light">
+        
+ <form action="" class="form req-form">
+    <div class="heading-bg">Create Request</div>
+
+    <input type="text" class="req-title" required placeholder="Title">
+    <input type="text" class="req-admin" required placeholder="Admin">
+    <textarea name="content" class="req-content" required id="" cols="50" rows="10"  placeholder="Write Your Request"></textarea>
+    <input type="submit" id="submit" placeholder="Create Request" class="btn btn-mid">
+ </form>
+     
+    </section>
+    <aside class="sm-sidebar bg-primary">
+         
+        <div class = 'menu'>
+         
+                  <a class="side-link" href="dashboard.html" >Dashboard </a>
+                   <a  class="side-link"  id="selected"href="create-request.html">Create</a>
+                   <a  class="side-link" href="pending.html">Pending</a>
+                   <a  class="side-link" href="approved.html">Approved</a>
+                   <a  class="side-link" href="disapproved.html">Disapproved</a>
+                   <a  class="side-link" href="resolved.html">Resolved</a>
+               </div> 
+ 
+</aside>
+  </div>
+
+
+<script src="./js/style.js"></script>
+</body>
+
+</html>
