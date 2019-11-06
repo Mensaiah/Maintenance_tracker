@@ -101,6 +101,30 @@ $danger-color: #dc3534;
     background: #fff;
     color: $primary-color;
   }
+  &-danger {
+    background: $danger-color;
+    color: #fff;
+  }
+}
+//Alert
+.alert {
+  padding: 0.8rem;
+  margin: 0;
+  opacity: 0.9;
+  background: $light-color;
+  align-self: center;
+  color: #333;
+  width: 50%;
+  &.alert-primary {
+    background: $primary-color;
+  }
+  &.alert-dark {
+    background: $dark-color;
+  }
+  &.alert-danger {
+    background: $danger-color;
+    color: #fff;
+  }
 }
 
 //Request

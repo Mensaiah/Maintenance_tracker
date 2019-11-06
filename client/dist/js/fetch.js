@@ -1,81 +1,73 @@
 const header = {
-  "Content-type": "application/json",
-  "x-auth-token": localStorage.token
+  'Content-type': 'application/json',
+  'x-auth-token': localStorage.token
 };
+const BASE_URL = !process.env.NODE_ENV
+  ? 'http://localhost:5000/api/v1/users'
+  : process.env.BASE_URL;
 
-class Fetch {
+class FetchAPI {
   // HTTP GET Request
   async get(url, cbFunction) {
-    try {
-      this.url = url;
-      const response = await fetch(url, {
-        method: "GET",
-        headers: header
-      });
-      return {
-        data: await response.json(),
-        status: await response.status
-      };
-    } catch (error) {
-      console.log(error);
-    }
-    cbFunction();
+    this.url = url;
+
+    const response = await fetch(BASE_URL + url, {
+      method: 'GET',
+      headers: header,
+      mode: 'cors'
+    });
+
+    const data = await response.json();
+    const status = await response.status;
+    cbFunction({ data, status });
   }
 
   // HTTP Post Request
-  async post(url, data, cbFunction) {
-    try {
-      this.url = url;
-      this.data = data;
-      const response = await fetch(url, {
-        method: "POST",
-        headers: header,
-        data: JSON.stringify(data)
-      });
-      return {
-        data: await response.json(),
-        status: await response.status
-      };
-    } catch (error) {
-      console.log(error);
-    }
-    cbFunction();
+  async post(url, body, cbFunction) {
+    this.url = url;
+    this.body = body;
+
+    const response = await fetch(BASE_URL + url, {
+      method: 'POST',
+      headers: header,
+      mode: 'cors',
+      body: JSON.stringify(body)
+    });
+
+    const data = await response.json();
+    const status = await response.status;
+    cbFunction({ data, status });
   }
 
-  async put(url, data, cbFunction) {
-    try {
-      this.url = url;
-      this.data = data;
-      const response = await fetch(url, {
-        method: "PuT",
-        headers: header,
-        data: JSON.stringify(data)
-      });
-      return {
-        data: await response.json(),
-        status: await response.status
-      };
-    } catch (error) {
-      console.log(error);
-    }
-    cbFunction();
+  // HTTP PUT Request
+  async put(url, body, cbFunction) {
+    this.url = url;
+    this.body = body;
+
+    const response = await fetch(BASE_URL + url, {
+      method: 'PUT',
+      headers: header,
+      mode: 'cors',
+      body: JSON.stringify(body)
+    });
+
+    const data = await response.json();
+    const status = await response.status;
+    cbFunction({ data, status });
   }
 
   async delete(url, cbFunction) {
-    try {
-      this.url = url;
+    this.url = url;
 
-      const response = await fetch(url, {
-        method: "PUT",
-        headers: header
-      });
-      return {
-        data: await response.json(),
-        status: await response.status
-      };
-    } catch (error) {
-      console.log(error);
-    }
-    cbFunction();
+    const response = await fetch(BASE_URL + url, {
+      method: 'DELETE',
+      headers: header
+    });
+
+    const data = await response.json();
+    const status = await response.status;
+    cbFunction({ data, status });
   }
 }
+
+module.exports FetchAPI

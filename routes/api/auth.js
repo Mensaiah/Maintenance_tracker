@@ -43,7 +43,7 @@ router.post(
       ]);
 
       if (user[0]) {
-        res.status(400).json({ errors: [{ msg: "Username already taken" }] });
+        res.status(400).json({ errors: [{ msg: "Email already taken" }] });
       } else {
         // Encrypt password
         const salt = await bcrypt.genSalt(10);
@@ -153,6 +153,7 @@ router.get("/signin", auth, async (req, res) => {
 // @access Private
 router.delete("/", auth, async (req, res) => {
   try {
+    await queryData("DELETE FROM requests WHERE user_uid = $1", [req.user]);
     await queryData("DELETE FROM users WHERE user_uid = $1", [req.user]);
     res.json({ msg: "User Deleted" });
   } catch (error) {

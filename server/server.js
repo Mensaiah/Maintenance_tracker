@@ -11,7 +11,7 @@ const app = express();
 app.use(cors());
 // Initialize Body Parser
 app.use(express.json({ extended: false }));
-const PORT = process.env.PORT || 7000;
+const PORT = process.env.PORT || 5000;
 
 app.use("/api/v1/requests/", requestRoute);
 app.use("/api/v1/users/auth/", authRoute);
