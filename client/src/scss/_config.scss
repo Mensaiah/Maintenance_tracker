@@ -1,0 +1,197 @@
+$primary-color: #568259;
+$secondary-color: #96e6b3;
+$light-color: #f1fffa;
+$dark-color: #464e47;
+$mid-color: #ccfccb;
+$danger-color: #dc3534;
+@mixin input {
+  border: 1px $primary-color solid;
+  border-radius: 10px;
+  font-size: 1.2rem;
+}
+@mixin easeOut {
+  transition: all 0.5s ease-out;
+}
+
+// buttons
+.btn {
+  display: block;
+  height: 3rem;
+  width: 12rem;
+  font-size: 1.5rem;
+  border-radius: 7px;
+  color: $primary-color;
+  border: none;
+
+  &.btn-primary {
+    background: $primary-color;
+    color: $light-color;
+    &:hover {
+      @include easeOut;
+      background: lighten($primary-color, 5%);
+    }
+  }
+  &.btn-dark {
+    background: $dark-color;
+    color: $light-color;
+    &:hover {
+      @include easeOut;
+      background: lighten($dark-color, 5%);
+    }
+  }
+  &.btn-light {
+    background: $light-color;
+    color: $primary-color;
+    &:hover {
+      @include easeOut;
+      background: darken($light-color, 5%);
+    }
+  }
+  &.btn-sec {
+    background: $secondary-color;
+    color: $dark-color;
+    &:hover {
+      @include easeOut;
+      background: lighten($secondary-color, 5%);
+    }
+  }
+  &.btn-mid {
+    background: $mid-color;
+    color: $primary-color;
+    &:hover {
+      @include easeOut;
+      background: darken($mid-color, 5%);
+    }
+  }
+  &.btn-danger {
+    background: $danger-color;
+    color: #fff;
+    &:hover {
+      @include easeOut;
+      background: lighten($danger-color, 5%);
+    }
+  }
+}
+
+//Background
+.bg {
+  &-primary {
+    background: $primary-color;
+    color: $light-color;
+  }
+  &-dark {
+    background: $dark-color;
+    color: $light-color;
+  }
+  &-light {
+    background: $light-color;
+    color: $primary-color;
+  }
+  &-sec {
+    background: $secondary-color;
+    color: $dark-color;
+  }
+  &-mid {
+    background: $mid-color;
+    color: $primary-color;
+  }
+  &-white {
+    background: #fff;
+    color: $primary-color;
+  }
+  &-danger {
+    background: $danger-color;
+    color: #fff;
+  }
+}
+//Alert
+.alert {
+  padding: 0.8rem;
+  margin: 0;
+  opacity: 0.9;
+  background: $light-color;
+  align-self: center;
+  color: #333;
+  width: 50%;
+  &.alert-primary {
+    background: $primary-color;
+  }
+  &.alert-dark {
+    background: $dark-color;
+  }
+  &.alert-danger {
+    background: $danger-color;
+    color: #fff;
+  }
+}
+
+//Request
+.request {
+  display: flex;
+  box-shadow: rgba($secondary-color, 0.25) 5px 5px 5px 5px;
+  padding: 1rem;
+  justify-content: flex-start;
+  width: 100%;
+
+  .content {
+    margin: auto 0.5rem;
+    text-align: left;
+    .title {
+      font-weight: bold;
+    }
+    .time {
+      font-weight: 400;
+      font-size: .8rem;
+      padding: 3rem auto;
+      font-style: italic;
+    }
+  }
+
+  &.md-request {
+    width: 85%;
+    font-size: 1.2rem;
+    height: auto;
+    margin: 2rem 0;
+ 
+  }
+  &.bg-request {
+    width: 150%;
+    font-size: 1.5rem;
+    margin: 0;
+
+    margin: 1.5rem 0;
+ 
+  }
+  &.sm-request {
+    height: auto;
+    margin: 1.5rem 0.3rem;
+
+  }
+  &:hover {
+    @include easeOut;
+    background: lighten($mid-color, 4);
+  }
+}
+
+.heading {
+  &-sm {
+    font-size: 2rem;
+    color: $dark-color;
+    font-weight: 500;
+    margin-right: inherit;
+    text-transform: capitalize;
+  }
+  &-md {
+    font-size: 2.5rem;
+    color: $dark-color;
+    font-weight: 500;
+    text-transform: capitalize;
+
+  }
+  &-bg {
+    font-size: 2.8rem;
+    color: $dark-color;
+    text-transform: capitalize;
+    font-weight: 500;
+  }
+}

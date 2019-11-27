@@ -1,0 +1,288 @@
+@import "config";
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  height: 100%;
+  margin: 0;
+  a {
+    text-decoration: none;
+    color: $light-color;
+    &:hover {
+      @include easeOut;
+      color: $mid-color;
+    }
+  }
+  ul {
+    list-style: none;
+  }
+  .nav {
+    grid-area: nav;
+    background: $primary-color;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 1rem;
+
+    ul {
+      display: flex;
+    }
+    a {
+      font-size: 1rem;
+      padding: 0.45rem;
+      margin: 0 1.8rem;
+    }
+    .nav-brand {
+      color: $light-color;
+      font-size: 2rem;
+    }
+    .logo,
+    .nav-link {
+      color: $light-color;
+      font-size: 2rem;
+    }
+    .menu-btn {
+      margin: 0 1.8rem;
+      padding-top: 1rem;
+      .menu-line {
+        display: block;
+        width: 25px;
+        height: 3px;
+        padding: 0;
+        margin: 0 0 5px 0;
+        background: $light-color;
+      }
+    }
+  }
+  .link{
+    color: $light-color;
+    &:hover {
+      @include easeOut;
+      color: $mid-color;
+    }
+  }
+}
+
+.landing {
+  background: url("../img/background-image.jpg");
+  height: 100%;
+  background-attachment: fixed;
+  background-size: cover;
+  margin: 0;
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+
+  .nav {
+    background: none;
+  }
+  .overlay {
+    background: rgba($primary-color, 0.4);
+    background-attachment: fixed;
+    background-size: cover;
+    margin: 0;
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+
+  }
+  .landing-body {
+    display: grid;
+    grid-auto-rows: minmax(auto, auto);
+    grid-template-rows: 1fr;
+    align-content: center;
+    align-items: center;
+    color: $light-color;
+    margin-top: 10rem;
+    
+    .lg-heading {
+      margin: 0 auto;
+      font-size: 4rem;
+      font-weight: 500;
+      color: white;
+      span {
+        color: $mid-color;
+      }
+    }
+
+    .sm-heading {
+      margin: 0 auto;
+      text-align: center;
+      font-size: 1.5rem;
+      width: 50%;
+    }
+    .landing-btn {
+      border-radius: 30px;
+      margin: 1rem auto;
+      text-align: center;
+      padding: 0.4rem;
+    }
+  }
+}
+.sm-text{
+  font-size: .8rem
+}
+
+
+#form-body{
+  background: url("../img/background-image.jpg");
+  height: 100%;
+  background-attachment: fixed;
+  background-size: cover;
+  margin: 0;
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+}
+.form {
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  align-content: center;
+  margin: 4%;
+
+  .lg-heading {
+    font-size: 3rem;
+    font-weight: 400;
+    margin: 0 auto;
+  }
+  .user-form {
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    justify-content: space-between;
+  }
+  input {
+    color: $dark-color;
+    width: 20rem;
+    height: 3rem;
+    @include input;
+    
+  }
+  #submit {
+    font-size: 1.8rem;
+    color: $primary-color;
+    width: 100%;
+    height: 3rem;
+    @include input;
+  }
+  &.req-form {
+    align-items: flex-start;
+    textarea {
+      @include input;
+      width: 100%;
+    }
+  }
+}
+
+.container-page{
+  background-color: $light-color;
+  background-attachment: fixed;
+  background-size: cover;
+  margin: 0;
+  position: relative;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  
+  height: 35rem;
+}
+
+.container {
+  display: flex;
+  align-content: center;
+  justify-content: flex-start;
+  background: $light-color;
+ 
+ 
+  .main {
+    width: 60%;
+    margin-left: 6rem;
+  }
+  .bg-sidebar {
+    width: 30%;
+    margin-top: 1.8rem;
+  }
+}
+.main-request {
+  display: flex;
+  flex-flow: column;
+  align-self: center;
+
+  align-content: flex-start;
+  padding: 2rem;
+  margin: 3rem 25%;
+  width: 50%;
+  font-size: 2rem;
+
+  strong {
+    text-transform: uppercase;
+  }
+  span {
+    color: $dark-color;
+  }
+  button {
+    display: inline;
+  }
+}
+
+.sm-sidebar {
+  grid-area: side;
+  padding-top: 4rem;
+  font-size: 1.5rem;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 15%;
+  z-index: 3;
+
+  margin: 0;
+  transform: translate3d(100%, 0, 0);
+  @include easeOut;
+  .menu {
+    display: flex;
+    flex-flow: column;
+    align-content: center;
+    padding-top: 3rem;
+    a {
+      text-transform: uppercase;
+      padding: 0.5rem;
+      padding-left: 1rem;
+    }
+    #selected {
+      color: $dark-color;
+      width: 100%;
+      background: $mid-color;
+      border-radius: 30px;
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
+      @include easeOut;
+      &:hover {
+        @include easeOut;
+        background: darken($mid-color, 5);
+      }
+    }
+  }
+  &.show {
+    transform: translate3d(0, 0, 0);
+    @include easeOut;
+  }
+}
+
+.loading{
+  text-align: center;
+  background: rgba($primary-color, 0.4);
+  border-radius: 4px;
+  margin-bottom: 20px;
+  padding: 30px 50px;
+  margin: auto;
+}

@@ -11,7 +11,7 @@ import auth from "../../middleware/auth";
 const date = new Date();
 const router = express.Router();
 
-// @route  POST /api/v1/user/auth/signUp
+// @route  POST /api/user/auth/signUp
 // @desc  Register user
 // @access Public
 router.post(
@@ -43,7 +43,7 @@ router.post(
       ]);
 
       if (user[0]) {
-        res.status(400).json({ errors: [{ msg: "Email already taken" }] });
+        res.status(400).json({ errors: [{ msg: "Username already taken" }] });
       } else {
         // Encrypt password
         const salt = await bcrypt.genSalt(10);
@@ -79,7 +79,7 @@ router.post(
     }
   }
 );
-// @route  POST /api/v1/user/auth/signin
+// @route  POST /api/user/auth/signin
 // @desc  Authenticate User and get token
 // @access Public
 router.post(
@@ -95,6 +95,7 @@ router.post(
     if (!errors.isEmpty()) {
       return res.status(400).json({ errors: errors.array() });
     }
+
     const { username, password } = req.body;
     try {
       const user = await queryData("SELECT * FROM users WHERE username = $1", [
@@ -133,10 +134,10 @@ router.post(
   }
 );
 
-// @route  GET api/auth/signin
+// @route  GET api/auth/
 // @desc  Get authenticated user
 // @access Private
-router.get("/signin", auth, async (req, res) => {
+router.get("/", auth, async (req, res) => {
   try {
     const user = await queryData(
       "SELECT user_uid,full_name,username,date_created,admin_status FROM users WHERE user_uid = $1",

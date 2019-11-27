@@ -8,8 +8,7 @@ import queryData from "../../config/db";
 const router = express.Router();
 const date = new Date();
 
-
-// @route  POST /api/v1/user/requests
+// @route  POST /api/user/requests
 // @desc  Create Request
 // @access Private
 router.post(
@@ -63,7 +62,7 @@ router.post(
   }
 );
 
-// @route  PUT /api/v1/user/requests/:id
+// @route  PUT /api/user/requests/:id
 // @desc  edit Request
 // @access Private
 router.put(
@@ -127,7 +126,7 @@ router.put(
   }
 );
 
-// @route  GET /api/v1/user/requests
+// @route  GET /api/user/requests
 // @desc  Get User Request
 // @access Private
 router.get("/", auth, async (req, res) => {
@@ -143,7 +142,7 @@ router.get("/", auth, async (req, res) => {
   }
 });
 
-// @route  GET /api/v1/user/requests/:id
+// @route  GET /api/user/requests/:id
 // @desc  Get User Request
 // @access Private
 router.get("/:id", auth, async (req, res) => {
@@ -162,7 +161,7 @@ router.get("/:id", auth, async (req, res) => {
   }
 });
 
-// @route  DELETE /api/v1/user/requests/:id
+// @route  DELETE /api/user/requests/:id
 // @desc  Delete Request
 // @access Private
 router.delete("/:id", auth, async (req, res) => {
